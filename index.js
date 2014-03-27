@@ -1,41 +1,26 @@
-var minimist = require('minimist')
 var split = require('split')
-var opts = {
-    default: {F: " "},
-    strings: ["F"]
-}
-var args = minimist(process.argv.slice(2), opts);
 
-if (args._.length < 1) {
-    throw new Error("Must supply a mapping")
-}
+module.exports = function (recordsep, fieldsep, keys, pos) {
 
-var jmap = args._[0];
+  var splitter = split(recordsep, parser)
 
-try {
-    jmap = JSON.parse(jmap)
-} catch (e) {
-    throw new Error("provided json map is unparsable")
-}
-
-var keys = Object.keys(jmap)
-var pos = keys.map( function (k) {return jmap[k]} )
-
-var splitter = split()
-
-process.stdin.pipe(splitter)
-
-splitter.on('data', function (data) {
-    if (data === '') return
-    var darr = data.split(args.F)
-    if (!darr.length) return
+  function parser (record) {
+    // console.log(record)
+    if (record === '') return void 0
+    var fields = record.split(fieldsep)
+    if (!fields.length) return void 0
     var jobj = {}
     keys.forEach( function (k, i) {
-        if (pos[i] === "NF") {
-            pos[i] = darr.length-1
-        }
-        if (!isNaN(darr[pos[i]])) darr[pos[i]] = Number(darr[pos[i]])
-        jobj[k] = darr[pos[i]]
+      if (pos[i] === "NF") {
+        pos[i] = fields.length-1
+      }
+      if (!isNaN(fields[pos[i]])) {
+        fields[pos[i]] = Number(fields[pos[i]])
+      }
+      jobj[k] = fields[pos[i]]
     })
-    console.log(JSON.stringify(jobj))
-})
+    return JSON.stringify(jobj) + "\n"
+  }
+
+  return splitter
+}

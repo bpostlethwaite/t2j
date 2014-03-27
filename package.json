@@ -26,6 +26,8 @@
   "homepage": "https://github.com/bpostlethwaite/t2j",
   "dependencies": {
     "split": "^0.3.0",
-    "minimist": "0.0.8"
+    "minimist": "0.0.8",
+    "through2": "^0.4.1",
+    "yargs": "^1.2.1"
   }
 }

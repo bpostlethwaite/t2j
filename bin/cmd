@@ -1,0 +1,38 @@
+#!/usr/bin/env node
+
+var args = require('yargs')
+           .alias('f', 'fieldsep')
+           .alias('r', 'recordsep')
+           .alias('R', 'outputSep')
+           .default(
+               { f: '\s*'
+               , r: '\n'
+               , R: '\n'
+               })
+           .demand(1, 'non-option argument json map required. Use --help for more details')
+           .argv
+
+  , opts = {
+    default: {F: " "},
+    strings: ["F"]
+  }
+  , jmap = args._[0];
+
+try {
+    jmap = JSON.parse(jmap)
+} catch (e) {
+    throw new Error("provided json map is unparsable")
+}
+
+var keys = Object.keys(jmap)
+  , pos = keys.map( function (k) {return jmap[k]} )
+  , recordsep = args.r
+  , fieldsep = args.f
+  , jsonifier = require('../')(recordsep, fieldsep, keys, pos)
+
+process.stdin
+.pipe(jsonifier)
+.pipe(process.stdout)
+
+
+// -*- mode: js3-mode;
