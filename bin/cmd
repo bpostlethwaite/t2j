@@ -5,10 +5,10 @@ var args = require('yargs')
            .alias('r', 'recordsep')
            .alias('R', 'outputSep')
            .default(
-               { f: '\s*'
-               , r: '\n'
-               , R: '\n'
-               })
+             { f: '\s*'
+             , r: '\n'
+             , R: '\n'
+             })
            .demand(1, 'non-option argument json map required. Use --help for more details')
            .argv
 
@@ -19,9 +19,9 @@ var args = require('yargs')
   , jmap = args._[0];
 
 try {
-    jmap = JSON.parse(jmap)
+  jmap = JSON.parse(jmap)
 } catch (e) {
-    throw new Error("provided json map is unparsable")
+  throw new Error("provided json map is unparsable")
 }
 
 var keys = Object.keys(jmap)
