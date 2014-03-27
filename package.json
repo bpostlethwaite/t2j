@@ -1,0 +1,31 @@
+{
+  "name": "t2j",
+  "version": "0.0.0",
+  "description": "unix unit to transform text to json",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bpostlethwaite/t2j.git"
+  },
+  "keywords": [
+    "\"text",
+    "to",
+    "json\"",
+    "text",
+    "json",
+    "tool"
+  ],
+  "author": "ben postlethwaite",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bpostlethwaite/t2j/issues"
+  },
+  "homepage": "https://github.com/bpostlethwaite/t2j",
+  "dependencies": {
+    "split": "^0.3.0",
+    "minimist": "0.0.8"
+  }
+}
